@@ -1,0 +1,67 @@
+ Ideias para o projeto final:
+
+
+1- RPG DE MESA DIGITAL.
+
+Um sistema de rpg estilo tormenta 20 feito em c, simplificado para fins de manter o projeto de tamanho razoável.
+
+Características principais:
+
+-Fichas de personagens são completamente feitas utilizando estruturas de dados (structs, unions e enums), atraves de definição de tipo, cada personagem possuindo sua classe, habilidade, stats, inventário, que é personalizado pelo usuário no começo do game.
+
+Ex em pseudocodigo:
+
+Typedef struct{
+  Char nome[];
+  Int idade.
+  Typedef struct{
+     Int força;
+     Int velocidade;
+     Int intelecto;
+}tstats;
+  Tstats stats_personagem;
+ }tpersonagem;
+
+
+-NPCs tbm são feitos nessa lógica porem com simplificações. Sendo eles Pessoas, Monstros e Animais. Cada npc gerado é parte de um array de struct de cada tipo.
+
+-O jogo possui 2 situações: Combate e Exploração.
+
+No combate aparece 3 opções no console (switch case):
+
+Atacar
+Usar item
+Habilidade
+Correr
+
+Cada uma dessas recorre a uma função base que executa um codigo na batalha. A meta é derrotar os inimigos, convencer eles pacificamente, ou fugir da batalha.
+
+Ex pseudo codigo: Função ataque
+Int Ataque(int atk_personagem, res_inimigo){
+
+Int dano ==  rand(0 - 20) + atk_personagem - res_inimigo;
+Return dano;
+
+Exploração:
+
+Focar em exploração linear sem muitas ramificações, mas com escolha do jogador. Tbm criar dialogos e personagens interessantes e pelo menos 3 finais para a missão.
+
+Ex exploração no console.
+
+Você está dentro do calabouço e encontra algumas coisas interessantes, escolha o que deve investigar.
+
+Livro empoeirado
+Esqueleto acorrentado
+Faca enferrujada com mancha de sangue
+Bola de cristal enevoada.
+
+
+Salvar progresso:
+
+O progresso do player pode ser salvo, caso ele retorne e execute o game e carregado o arquivo do progresso dele.
+
+Extra modo arena:
+
+Modo focado apenas no combate, hordas de inimigos vem infinitamente e personagem deve sobreviver
+
+
