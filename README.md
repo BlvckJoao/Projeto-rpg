@@ -1,2 +1,2 @@
 # Projeto-rpg
-Um repositoria para os codigos do projeto de introdução a programação
+Um repositorio para os codigos do projeto de introdução a programação
