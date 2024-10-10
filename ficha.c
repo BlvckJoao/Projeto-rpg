@@ -100,38 +100,60 @@ int main(int argc, char* argv[]){
     switch(esc_raca){
         
         case 1:
-         printf("\nDeseja que %s seja um humano?" personagem.nome);
-        
+         printf("\nDeseja que %s seja um humano? Deseja prosseguir? (Digite 0 para não ou 1 para sim):\n", personagem.nome);
+         break;
+         
         case 2:
-         printf("\nDeseja que %s seja um elfo?" personagem.nome);
+         printf("\nDeseja que %s seja um elfo? Deseja prosseguir? (Digite 0 para não ou 1 para sim):\n", personagem.nome);
+         break;
          
         case 3:
-         printf("\nDeseja que %s seja um anao?" personagem.nome);
+         printf("\nDeseja que %s seja um anao? Deseja prosseguir? (Digite 0 para não ou 1 para sim):\n", personagem.nome);
+         break;
          
         case 4:
-         printf("\nDeseja que %s seja um sheder?" personagem.nome);
+         printf("\nDeseja que %s seja um sheder? Deseja prosseguir? (Digite 0 para não ou 1 para sim):\n", personagem.nome);
+         break;
          
         case 5:
-         printf("\nDeseja que %s seja um berserkir?" personagem.nome);
+         printf("\nDeseja que %s seja um berserkir? Deseja prosseguir? (Digite 0 para não ou 1 para sim):\n", personagem.nome);
+         break;
          
         case 6:
-         printf("\nDeseja que %s seja um mermede?\n" personagem.nome);
+         printf("\nDeseja que %s seja um mermede? Deseja prosseguir? (Digite 0 para não ou 1 para sim):\n", personagem.nome);
+         break;
          
         default:
          printf("\nEscolha invalida");
+         continue;
     
     }
+    if(esc_raca < 1 && esc_raca > 6){
+        printf("\nVoce tera que escolher um numero de 1 a 6\n");
+    }else{
+        scanf("%d", &loop);
+    }
+    }while (loop == 0);
     printf("\nRaca escolhida com sucesso!!!");
+    
+    
     
     printf("\nVamos ditribuir alguns stats, cada stat vai de 1 a 20, o maximo de pontos a distribuir é 72");
     
-    if(max_pontos_stats > 0){
         printf("\nDigite a força de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.forca);
         printf("\nDigite a agilidade de %s: ", personagem.nome);
-        scanf("%d", &personagem.status_pers.forca);
-
-    }
-
+        scanf("%d", &personagem.status_pers.agilidade);
+        printf("\nDigite o vigor de %s: ", personagem.nome);
+        scanf("%d", &personagem.status_pers.vigor);
+        printf("\nDigite o intelecto de %s: ", personagem.nome);
+        scanf("%d", &personagem.status_pers.intelecto);
+        printf("\nDigite o carisma de %s: ", personagem.nome);
+        scanf("%d", &personagem.status_pers.carisma);
+        printf("\nDigite a sabedoria de %s: ", personagem.nome);
+        scanf("%d", &personagem.status_pers.sabedoria);
+        
     return 0;
+}
+
 }
