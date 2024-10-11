@@ -60,7 +60,7 @@ typedef struct{
 int main(int argc, char* argv[]){
 
     tpersonagem personagem;
-    int max_pontos_stats = 72;
+    int max_pontos_stats;
     int esc_raca;
     int loop = 0;
     
@@ -135,25 +135,100 @@ int main(int argc, char* argv[]){
     }
     }while (loop == 0);
     printf("\nRaca escolhida com sucesso!!!");
+    loop = 0;
     
+    do{
+        
+        do{
+            
+        max_pontos_stats = 72;
     
+    printf("\n\nVamos ditribuir alguns stats, cada estatistica vai de 1 até 20, o maximo de pontos a distribuir em todas é 72");
     
-    printf("\nVamos ditribuir alguns stats, cada stat vai de 1 a 20, o maximo de pontos a distribuir é 72");
-    
+        printf("\nPontos a distribuir = %d", max_pontos_stats );
         printf("\nDigite a força de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.forca);
+        max_pontos_stats = max_pontos_stats - personagem.status_pers.forca;
+        
+        if(max_pontos_stats > 0){
+        
+        printf("\nPontos a distribuir = %d", max_pontos_stats );
         printf("\nDigite a agilidade de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.agilidade);
+         max_pontos_stats = max_pontos_stats - personagem.status_pers.agilidade;
+         
+        }else{ 
+          printf("Numero maximo distribuído");
+          break;
+        }
+        
+        if(max_pontos_stats > 0){
+         
+        printf("\nPontos a distribuir = %d", max_pontos_stats );
         printf("\nDigite o vigor de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.vigor);
+         max_pontos_stats = max_pontos_stats - personagem.status_pers.vigor;
+         
+        }else{ 
+          printf("Numero maximo distribuído");
+          break;
+        }
+        
+        if(max_pontos_stats > 0){
+
+        printf("\nPontos a distribuir = %d", max_pontos_stats );
         printf("\nDigite o intelecto de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.intelecto);
+        max_pontos_stats = max_pontos_stats - personagem.status_pers.intelecto;
+        
+        }else{ 
+          printf("Numero maximo distribuído");
+          break;
+        }
+        
+        if(max_pontos_stats > 0){
+        
+        printf("\nPontos a distribuir = %d", max_pontos_stats );
         printf("\nDigite o carisma de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.carisma);
+        max_pontos_stats = max_pontos_stats - personagem.status_pers.carisma;
+        
+        }else{ 
+          printf("Numero maximo distribuído");
+          break;
+        }
+        
+        if(max_pontos_stats > 0){
+            
+        printf("\nPontos a distribuir = %d", max_pontos_stats );
         printf("\nDigite a sabedoria de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.sabedoria);
+         max_pontos_stats = max_pontos_stats - personagem.status_pers.sabedoria;
+        break;
         
+        }else{ 
+          printf("Numero maximo distribuído");
+          break;
+        }
+        }while(loop == 0);
+        
+        personagem.vida = 16 + (personagem.status_pers.vigor / 4);
+        personagem.mana = 4 + (personagem.status_pers.carisma / 4);
+        
+        printf("\nSuas estatisticas ficaram assim: ");
+        
+        printf("\n\nVida: %d", personagem.vida);
+        printf("\nMana: %d", personagem.mana);
+        printf("\nForca: %d",personagem.status_pers.forca);
+        printf("\nAgilidade: %d",personagem.status_pers.agilidade);
+        printf("\nVigor: %d",personagem.status_pers.vigor);
+        printf("\nIntelecto: %d",personagem.status_pers.intelecto);
+        printf("\nCarisma: %d",personagem.status_pers.carisma);
+        printf("\nSabedoria: %d",personagem.status_pers.sabedoria);
+        
+        printf("\n\nDeseja continuar com essa ficha ou deseja redistribuir os stats (Digite 0 para não ou 1 para sim):\n ");
+        scanf("%d", &loop);
+    }while(loop==0);
+    
     return 0;
-}
-
 }
