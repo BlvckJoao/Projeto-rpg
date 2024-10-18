@@ -1,6 +1,59 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <string.h>
+
+// estruturas para subtipos
+
+typedef enum{
+    HUMANO,
+    ELFO,
+    ANAO,
+    SHEDER,
+    BERSERKIR,
+    MERMEDE,
+}traca;
+
+typedef enum{
+    GUERREIRO,
+    LADINO,
+    MAGO,
+}tclasse;
+
+typedef struct{
+    int forca;
+    int agilidade;
+    int vigor;
+    int intelecto;
+    int carisma;
+    int sabedoria;
+}tstats;
+
+typedef struct{
+    int luta;
+    int mira;
+    int percepcao;
+    int acrobacia;
+    int cura;
+    int conhecimento;
+    int fortitude;
+    int furtividade;
+    int atletismo;
+}tpericias;
+
+//ficha para personagem
+
+typedef struct{
+    char nome[MAX];
+    int level;
+    float experiencia;
+    traca raca_pers;
+    tclasse classe_pers;
+    tstats status_pers;
+    tpericias pericias_pers;
+    int vida;
+    int mana;
+}tpersonagem;
 
 void clear() {
 	
@@ -38,24 +91,35 @@ void printtxt(char nome[]) {
 }
 
 int main() {
+	
+	//Definindo os caracteres para português
 	setlocale(LC_ALL, "Portuguese");
-	int loop = 1, escolha;
-	char nome[100];
+	
+	//Váriaveis da lógica do programa
+	int loop = 1;
+	char escolha[20];
+	
+	//Váriaveis do personagem
+	tpersonagem personagem;
+    int max_pontos_stats;
+	
+	//Tela principal
 	while(loop) {
 		clear();
 		printtxt("Logo.txt");
 		printf("\n");
-		printf("1 - jogar\n");
-		printf("2 - sair do programa\n");
+		printf("Bem-vindo ao nosso RPG de texto! O que deseja fazer?\n");
 		printf("\n");
-		printf("Digite o número correspondente: ");
-		scanf("%i", &escolha);
-		switch(escolha) {
-			case 1:
-				break;
-			case 2:
-				loop = 0;
-				break;
+		printf("(jogar)\n");
+		printf("(sair)\n");
+		printf("\n");
+		printf("Digite a palavra em parênteses: ");
+		scanf("%s", escolha);
+		printf("\n");
+		if(strcmp(escolha, "jogar") == 0) {
+			//Continuar aqui
+		} else if(strcmp(escolha, "sair") == 0) {
+			loop = 0;
 		}
 	}
 }
