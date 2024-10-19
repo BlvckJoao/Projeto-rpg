@@ -4,6 +4,7 @@
 #include <time.h>
 #include "structs.h"
 
+
 int random_num(int intervalo){
 
     srand(time(NULL));
@@ -23,6 +24,15 @@ int random_num(int intervalo){
       return 0;
     }
 }
+
+void inventario(char iventario[]){
+
+}
+
+void fugir(){
+    
+}
+
 
 void combate(tpersonagem personagem, tentidade entidade){
 
@@ -62,38 +72,8 @@ void combate(tpersonagem personagem, tentidade entidade){
             case 2:
                 iventario();
                 break;
+                
             case 3:
         }
     }
-
-}
-
-void inventario(char iventario[]){
-
-}
-
-
-void menu_inte (){
-    int opcao;
-
-    setlocale(LC_ALL, "portuguese");
-
-    printf("\n  Menu \n");
-    printf("\n1 - Combate\n2 - Inventario\n3 - Fugir\n\nDigite sua escolha: ");
-    scanf("%d", &opcao);
-
-    switch (opcao){
-        case 1:
-            combate();
-            break;
-
-        case 2:
-            iventario();
-            break;
-        case 3:
-    }
-}
-
-int main(){
-    menu_inte();
 }
