@@ -4,7 +4,6 @@
 #include <time.h>
 #include "structs.h"
 
-
 int random_num(int intervalo){
 
     srand(time(NULL));
@@ -66,7 +65,6 @@ void combate(tpersonagem personagem, tentidade entidade){
             case 3:
         }
     }
-
 
 }
 
