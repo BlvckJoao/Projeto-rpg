@@ -51,11 +51,11 @@ void fugir(tpersonagem personagem, tentidade entidade){
     int intervalo = 20
     int teste = random_num(intervalo);
 
-    if(teste + velocidade > velocidade2 || teste < 19){
+    if(teste + agilidade > agilidade2 || teste < 19){
        
     }else if(teste > 18){
 
-    }else if(teste + velocidade < velocidade){
+    }else if(teste + agilidade < agilidade2){
       
     }
 }
