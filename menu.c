@@ -25,14 +25,40 @@ int random_num(int intervalo){
     }
 }
 
+int atack(int dano, int atk, int defesa){
+    int intervalo = 20
+    int teste = random_num(intervalo);
+
+    if(teste + atk > defesa/2 || teste < 19){
+       return dano;
+
+    }else if(teste > 18){
+      return dano * 2;
+
+    }else if(teste + atk < defesa/2){
+      return 0;
+    }
+}
+
 void inventario(char iventario[]){
 
 }
 
-void fugir(){
-    
-}
+void fugir(tpersonagem personagem, tentidade entidade){
 
+    printf("Voce %s esta tentando fugir d %s", personagem.nome, entidade.nome);
+
+    int intervalo = 20
+    int teste = random_num(intervalo);
+
+    if(teste + velocidade > velocidade2 || teste < 19){
+       
+    }else if(teste > 18){
+
+    }else if(teste + velocidade < velocidade){
+      
+    }
+}
 
 void combate(tpersonagem personagem, tentidade entidade){
 
@@ -72,8 +98,12 @@ void combate(tpersonagem personagem, tentidade entidade){
             case 2:
                 iventario();
                 break;
-                
+
             case 3:
         }
     }
+}
+
+int main(){
+    combate();
 }
