@@ -29,6 +29,12 @@ typedef enum{
     MONSTRO,
 }tbixo;
 
+typedef enum{
+   ARMA,
+   ARMADURA,
+   CONSUMIVEL,
+}tclasseitem;
+
 typedef struct{
     int forca;
     int agilidade;
@@ -41,10 +47,11 @@ typedef struct{
 //ficha para itens
 
 typedef struct{
-    char nome[MAX];
+    char nome[20];
+    tclasseitem tipo;
     int efeito;
     int peso;
-}titens;
+}titem;
 
 //ficha para personagem
 
@@ -55,9 +62,11 @@ typedef struct{
     traca raca_pers;
     tclasse classe_pers;
     tstats status_pers;
-    titens inventario[];
-    int vida;
-    int mana;
+    titem inventario[];
+    titem arma, armadura;
+    int max_inventario;
+    int vida, max_vida;
+    int mana, max_mana;
 }tpersonagem;
 
 //ficha para entidades nao jogaveis (inimigos, npcs, etc)
