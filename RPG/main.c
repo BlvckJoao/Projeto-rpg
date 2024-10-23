@@ -70,6 +70,32 @@ int main() {
 			clear();
 			personagem = criar_personagem();
 			
+			titem espada;
+			
+			strcpy(espada.nome, "Espada velha");
+			espada.efeito = 4;
+			espada.tipo = ARMA;
+			espada.peso = 1;
+			
+			personagem.arma = espada;
+			
+			tentidade guarda;
+			
+			strcpy(guarda.nome,"Guarda");
+			guarda.stats_ent.forca = 10;
+			guarda.stats_ent.agilidade = 10;
+			guarda.stats_ent.vigor = 10;
+			guarda.stats_ent.carisma = 5;
+			guarda.stats_ent.intelecto = 5;
+			guarda.stats_ent.sabedoria = 5;
+			guarda.bixo_ent = HUMANOIDE;
+			guarda.efeito = 3;
+			guarda.vida = 15;
+			
+			printf("combate teste (o mesmo inicial da carroça)");
+			system("PAUSE");
+			combate(personagem, guarda);
+			
 		} else if(strcmp(escolha, "sair") == 0) {
 			
 			//Fim do programa

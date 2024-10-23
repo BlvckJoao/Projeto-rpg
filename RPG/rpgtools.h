@@ -76,6 +76,7 @@ typedef struct{
      tbixo bixo_ent;
      int vida;
      tstats stats_ent;
+     int efeito;
 }tentidade;
 
 tpersonagem criar_personagem();

@@ -303,7 +303,7 @@ tpersonagem criar_personagem() {
 
 
         printf("\n\nDeseja seguir com %s? (Digite 0 para recriar o personagem ou 1 para continuar): ", personagem.nome);
-        scanf("%d", criacao);
+        scanf("%d", &criacao);
 
  }while(criacao == 0);
 
@@ -410,10 +410,32 @@ int attack(int dano, int atk, int defesa) {
 
     // Lógica de ataque
     if (teste + atk > defesa / 2 || teste < 19) {
+    	printf("\nVoce atacou o inimigo e causou %d de dano", dano);
         return dano; // Retorna o dano se a condição for verdadeira
     } else if (teste > 18) {
+    	printf("\nAtaque crítico, voce acertou o inimigo em ponto vital e causou %d de dano", dano*2);
         return dano * 2; // Retorna o dano dobrado se a condição for verdadeira
     } else if (teste + atk < defesa / 2) {
+    	printf("\nVoce tentou atacar mas errou miseravelmente, nao causou dano");
+        return 0; // Retorna 0 se a condição for verdadeira
+    }
+
+    return 0; // Adiciona um retorno padrão para evitar warnings
+}
+
+int attackInimigo(int dano, int atk, int defesa) {
+    int intervalo = 20; // Adicionando ponto e vírgula
+    int teste = random_num(intervalo); // Chama a função random_num
+
+    // Lógica de ataque
+    if (teste + atk > defesa / 2 || teste < 19) {
+    	printf("\n O inimigo te atacou causou %d de dano", dano);
+        return dano; // Retorna o dano se a condição for verdadeira
+    } else if (teste > 18) {
+    	printf("\nAtaque crítico, o inimigo te atacou em ponto vital e causou %d de dano", dano*2);
+        return dano * 2; // Retorna o dano dobrado se a condição for verdadeira
+    } else if (teste + atk < defesa / 2) {
+    	printf("\nVoce tentou atacar mas errou miseravelmente, nao causou dano");
         return 0; // Retorna 0 se a condição for verdadeira
     }
 
@@ -438,10 +460,12 @@ int fugir(tpersonagem *personagem, tentidade entidade){
 
 void combate(tpersonagem personagem, tentidade entidade) {
     int opcao;
-    int loop = 1;
     int dano;
+    int fuga = 0;
+    tpersonagem *ptr_pers;
+    ptr_pers = &personagem;
     
-    while(loop) {
+    do{
     	printf("O %s se aproxima de %s\n\n", entidade.nome, personagem.nome);
     	printf("Vida do inimigo: %i\n\n", entidade.vida);
     	printf("Sua vida: %i\n\n", personagem.vida);
@@ -453,24 +477,34 @@ void combate(tpersonagem personagem, tentidade entidade) {
             	// Chama a função de ataque, passando os parâmetros corretos
             	dano = attack(personagem.arma.efeito, personagem.status_pers.forca, entidade.stats_ent.agilidade);
             	entidade.vida -= dano; // Reduz a vida da entidade com o dano causado
-            	printf("Você atacou e causou %d de dano. Vida do inimigo agora: %i\n", dano, entidade.vida);
             	break;
         	case 2:
+        		MostrarInventario(personagem);
             	break;
         	case 3:
-            	if(fugir) {
-            		printf("Você consegui fugir do combate");
-            		loop = 0;
-            		break;
-				} else{
-					printf("Você não consegui fugir");
-					break;
+        		fuga = fugir(ptr_pers, entidade);
+        		
+            	if(fuga == 0){
+            		printf("Você nao conseguiu fugir e perde a rodada");
 				}
-            	break;
         	default:
-            	printf("Opção inválida! Por favor, escolha novamente.\n");
+            	printf("\nOpção inválida! Voce entra e choque e não faz nada nessa rodada");
             	break; // Para lidar com opções inválidas
     }
+    
+    printf("\nVez do inimigo ele te ataca");
+    
+	}while(personagem.vida > 0 || entidade.vida > 0 || fuga != 1);
+	
+	if(entidade.vida <= 0){
+		printf("\nO %s morreu agora voce esta livre", entidade.nome);
+		return;
+	}else if(personagem.vida <= 0){
+		printf("\nVocê morreu");
+		return;
+	}else{
+		printf("Você corre muito e conseguiu fugir do %s, está livre", entidade.nome);
+		return;
 	}
 }
 
