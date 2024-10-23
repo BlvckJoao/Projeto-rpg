@@ -21,25 +21,26 @@ tpersonagem criar_personagem() {
             scanf(" %[^\n]", personagem.nome);
             printf("\nO nome de seu personagem é %s. Deseja prosseguir? (Digite 0 para não ou 1 para sim)\n", personagem.nome);
             scanf("%d", &loop);
+            printf("\n");
             if (loop == 0) {
-                printf("Você decidiu reescolher o nome.\n");
+                printf("Você decidiu reescolher o nome.\n\n");
             }
         } while (loop == 0);
-        printf("Você decidiu prosseguir com o personagem: %s\n", personagem.nome);
+        printf("Você decidiu prosseguir com o personagem: %s\n\n", personagem.nome);
 
         loop = 0; // Reset do loop para ser utilizado de novo
 
         // Escolha de raça
         do {
-            printf("\nDe qual raça ele seria? (Escolha digitando a opção com número)\n");
-            printf("\n1. HUMANO: Versáteis e equilibrados, capazes de fazer qualquer coisa com expertise");
-            printf("\n2. ELFOS: Ágeis e inteligentes, possuem proficiência com magia e conhecimento");
-            printf("\n3. ANÕES: Seres robustos e resistentes, possuem vigor inesgotável");
-            printf("\n4. SHEDERS: Seres das sombras, mestres da agilidade e precisão");
-            printf("\n5. BERSERKIR: Guerreiros implacáveis, possuem força e resistência descomunal");
-            printf("\n6. MERMEDES: Mestres da diplomacia, possuem poder na manipulação e lábia");
+            printf("Escolha a raça do seu personagem? (Escolha a opção digitando o número correspondente)\n");
+            printf("1. HUMANO: Versáteis e equilibrados, capazes de fazer qualquer coisa com expertise\n");
+            printf("2. ELFO: Ágeis e inteligentes, possuem proficiência com magia e conhecimento\n");
+            printf("3. ANÃO: Seres robustos e resistentes, possuem vigor inesgotável\n");
+            printf("4. SHEDER: Seres das sombras, mestres da agilidade e precisão\n");
+            printf("5. BERSERKIR: Guerreiros implacáveis, possuem força e resistência descomunal\n");
+            printf("6. MERMEDE: Mestres da diplomacia, possuem poder na manipulação e lábia\n");
 
-            printf("\nEscolha: ");
+            printf("Escolha: ");
             scanf("%d", &esc_raca);
             personagem.raca_pers = esc_raca - 1;
 
@@ -68,7 +69,7 @@ tpersonagem criar_personagem() {
             }
 
             if (esc_raca < 1 || esc_raca > 6) {
-                printf("\nVocê terá que escolher um número de 1 a 6\n");
+                printf("\nVocê tem que escolher um número de 1 a 6\n");
             } else {
                 scanf("%d", &loop);
             }
@@ -78,7 +79,7 @@ tpersonagem criar_personagem() {
 
         // Escolha de classe
         do {
-            printf("\nEscolha a classe de seu personagem (Escolha digitando a opção com número)\n");
+            printf("\nEscolha a classe de seu personagem (Escolha a opção digitando o número correspondente)");
             printf("\n1. GUERREIRO");
             printf("\n2. LADINO");
             printf("\n3. MAGO");
@@ -123,89 +124,169 @@ tpersonagem criar_personagem() {
             }
 
             if (esc_classe < 1 || esc_classe > 8) {
-                printf("\nVocê terá que escolher um número de 1 a 8\n");
+                printf("\nVocê tem que escolher um número de 1 a 8\n");
             } else {
                 scanf("%d", &loop);
             }
         } while (loop == 0);
-        printf("\nClasse escolhida com sucesso!\n");
+        printf("\nClasse escolhida com sucesso!\n\n");
         loop = 0;
 
     do{
 
-        do{
-
         max_pontos_stats = 72;
+        
+        personagem.status_pers.forca = 0;
+        personagem.status_pers.agilidade = 0;
+        personagem.status_pers.vigor = 0;
+        personagem.status_pers.intelecto = 0;
+        personagem.status_pers.sabedoria = 0;
+        personagem.status_pers.carisma = 0;
 
-    printf("\n\nVamos ditribuir alguns stats, cada estatistica vai de 1 atÃ© 20, o maximo de pontos a distribuir em todas Ã© 72");
+    printf("Vamos ditribuir alguns stats, cada estatistica vai de 1 até 20, o máximo de pontos a distribuir são 72\n\n");
     
-
-        printf("\nPontos a distribuir = %d", max_pontos_stats );
-        printf("\nDigite a forÃ§a de %s: ", personagem.nome);
+    while(loop == 0) {
+    	printf("Pontos restantes a distribuir = %d\n", max_pontos_stats );
+        printf("Digite a força de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.forca);
-        max_pontos_stats = max_pontos_stats - personagem.status_pers.forca;
+        if(personagem.status_pers.forca >= 1 && personagem.status_pers.forca <= 20) {
+        	if(personagem.status_pers.forca <= max_pontos_stats) {
+        		loop = 1;
+        		max_pontos_stats = max_pontos_stats - personagem.status_pers.forca;
+			} else {
+				printf("\nVocê não tem os pontos suficientes. Tente outra vez.\n");
+			}
+		} else {
+			printf("\nValor inválido. Escolha um valor entre 1 e 20.\n");
+		}
+		printf("\n");
+	}
+	loop = 0;
 
         if(max_pontos_stats > 0){
 
-        printf("\nPontos a distribuir = %d", max_pontos_stats );
-        printf("\nDigite a agilidade de %s: ", personagem.nome);
+        while(loop == 0) {
+    	printf("Pontos restantes a distribuir = %d\n", max_pontos_stats );
+        printf("Digite a agilidade de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.agilidade);
-         max_pontos_stats = max_pontos_stats - personagem.status_pers.agilidade;
+        if(personagem.status_pers.agilidade >= 1 && personagem.status_pers.agilidade <= 20) {
+        	if(personagem.status_pers.agilidade <= max_pontos_stats) {
+        		loop = 1;
+        		max_pontos_stats = max_pontos_stats - personagem.status_pers.agilidade;
+			} else {
+				printf("\nVocê não tem os pontos suficientes. Tente outra vez.\n");
+			}
+		} else {
+			printf("\nValor inválido. Escolha um valor entre 1 e 20.\n");
+		}
+		printf("\n");
+	}
+	loop = 0;	
 
         }else{ 
-          printf("Numero maximo distribuÃ­do");
+          printf("Número máximo distribuido");
           break;
         }
 
         if(max_pontos_stats > 0){
 
-        printf("\nPontos a distribuir = %d", max_pontos_stats );
-        printf("\nDigite o vigor de %s: ", personagem.nome);
+        while(loop == 0) {
+    	printf("Pontos restantes a distribuir = %d\n", max_pontos_stats );
+        printf("Digite a vigor de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.vigor);
-         max_pontos_stats = max_pontos_stats - personagem.status_pers.vigor;
+        if(personagem.status_pers.vigor >= 1 && personagem.status_pers.vigor <= 20) {
+        	if(personagem.status_pers.vigor <= max_pontos_stats) {
+        		loop = 1;
+        		max_pontos_stats = max_pontos_stats - personagem.status_pers.vigor;
+			} else {
+				printf("\nVocê não tem os pontos suficientes. Tente outra vez.\n");
+			}
+		} else {
+			printf("\nValor inválido. Escolha um valor entre 1 e 20.\n");
+		}
+		printf("\n");
+	}
+	loop = 0;	
 
         }else{ 
-          printf("Numero maximo distribuÃ­do");
+          printf("Número máximo distribuido");
           break;
         }
 
         if(max_pontos_stats > 0){
 
-        printf("\nPontos a distribuir = %d", max_pontos_stats );
-        printf("\nDigite o intelecto de %s: ", personagem.nome);
+        while(loop == 0) {
+    	printf("Pontos restantes a distribuir = %d\n", max_pontos_stats );
+        printf("Digite o intelecto de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.intelecto);
-        max_pontos_stats = max_pontos_stats - personagem.status_pers.intelecto;
+        if(personagem.status_pers.intelecto >= 1 && personagem.status_pers.intelecto <= 20) {
+        	if(personagem.status_pers.intelecto <= max_pontos_stats) {
+        		loop = 1;
+        		max_pontos_stats = max_pontos_stats - personagem.status_pers.intelecto;
+			} else {
+				printf("\nVocê não tem os pontos suficientes. Tente outra vez.\n");
+			}
+		} else {
+			printf("\nValor inválido. Escolha um valor entre 1 e 20.\n");
+		}
+		printf("\n");
+	}
+	loop = 0;	
 
         }else{ 
-          printf("Numero maximo distribuÃ­do");
+          printf("Número máximo distribuido");
           break;
         }
 
         if(max_pontos_stats > 0){
 
-        printf("\nPontos a distribuir = %d", max_pontos_stats );
-        printf("\nDigite o carisma de %s: ", personagem.nome);
-        scanf("%d", &personagem.status_pers.carisma);
-        max_pontos_stats = max_pontos_stats - personagem.status_pers.carisma;
-
-        }else{ 
-          printf("Numero maximo distribuÃ­do");
-          break;
-        }
-
-        if(max_pontos_stats > 0){
-
-        printf("\nPontos a distribuir = %d", max_pontos_stats );
-        printf("\nDigite a sabedoria de %s: ", personagem.nome);
+        while(loop == 0) {
+    	printf("Pontos restantes a distribuir = %d\n", max_pontos_stats );
+        printf("Digite o sabedoria de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.sabedoria);
-         max_pontos_stats = max_pontos_stats - personagem.status_pers.sabedoria;
-        break;
+        if(personagem.status_pers.sabedoria >= 1 && personagem.status_pers.sabedoria <= 20) {
+        	if(personagem.status_pers.sabedoria <= max_pontos_stats) {
+        		loop = 1;
+        		max_pontos_stats = max_pontos_stats - personagem.status_pers.sabedoria;
+			} else {
+				printf("\nVocê não tem os pontos suficientes. Tente outra vez.\n");
+			}
+		} else {
+			printf("\nValor inválido. Escolha um valor entre 1 e 20.\n");
+		}
+		printf("\n");
+	}
+	loop = 0;	
 
         }else{ 
-          printf("Numero maximo distribuÃ­do");
+          printf("Número máximo distribuido");
           break;
         }
-        }while(loop == 0);
+
+        if(max_pontos_stats > 0){
+
+        while(loop == 0) {
+    	printf("Pontos restantes a distribuir = %d\n", max_pontos_stats );
+        printf("Digite o intelecto de %s: ", personagem.nome);
+        scanf("%d", &personagem.status_pers.carisma);
+        if(personagem.status_pers.carisma >= 1 && personagem.status_pers.carisma <= 20) {
+        	if(personagem.status_pers.carisma <= max_pontos_stats) {
+        		loop = 1;
+        		max_pontos_stats = max_pontos_stats - personagem.status_pers.carisma;
+			} else {
+				printf("\nVocê não tem os pontos suficientes. Tente outra vez.\n");
+			}
+		} else {
+			printf("\nValor inválido. Escolha um valor entre 1 e 20.\n");
+		}
+		printf("\n");
+	}
+	loop = 0;	
+
+        }else{ 
+          printf("Número máximo distribuido");
+          break;
+        }
 
         personagem.max_vida = 16 + (personagem.status_pers.vigor / 4);
         personagem.max_mana = 4 + (personagem.status_pers.carisma / 4);
@@ -218,7 +299,7 @@ tpersonagem criar_personagem() {
 
         printf("\n\nVida: %d", personagem.vida);
         printf("\nMana: %d", personagem.mana);
-        printf("\nMáximo de itens: %d");
+        printf("\nMáximo de itens: %d", personagem.max_inventario);
         printf("\nForca: %d",personagem.status_pers.forca);
         printf("\nAgilidade: %d",personagem.status_pers.agilidade);
         printf("\nVigor: %d",personagem.status_pers.vigor);
@@ -226,88 +307,86 @@ tpersonagem criar_personagem() {
         printf("\nCarisma: %d",personagem.status_pers.carisma);
         printf("\nSabedoria: %d",personagem.status_pers.sabedoria);
 
-        printf("\n\nDeseja continuar com essa ficha ou deseja redistribuir os stats (Digite 0 para nÃ£o ou 1 para sim):\n ");
+        printf("\n\nDeseja continuar com essa ficha ou deseja redistribuir os stats (Digite 0 para nÃ£o ou 1 para sim):\n");
         scanf("%d", &loop);
+        printf("\n");
     }while(loop==0);
 
-        printf("\nAqui estÃ¡ a ficha de seu personagem montada:");
+        printf("Aqui está a ficha de seu personagem montada:\n\n");
 
-        printf("\nNome: %s", personagem.nome);
-
-
-
+        printf("Nome: %s\n", personagem.nome);
         switch(personagem.raca_pers){
 
         case 0:
-            printf("\nRaca: Humano");
+            printf("Raca: Humano\n");
             break;
 
         case 1:
-            printf("\nRaca: Elfo");
+            printf("Raca: Elfo\n");
             break;
 
         case 2:
-            printf("\nRaca: Anao");
+            printf("Raca: Anão\n");
             break;
 
         case 3:
-            printf("\nRaca: Sheder");
+            printf("Raca: Sheder\n");
             break;
 
         case 4:
-            printf("\nRaca: Berserkir");
+            printf("Raca: Berserkir\n");
             break;
 
         case 5:
-            printf("\nRaca: Mermede");
+            printf("Raca: Mermede\n");
             break;
         }
 
 
          switch(personagem.classe_pers){
         case 0:
-            printf("\nClasse: Guerreiro");
+            printf("Classe: Guerreiro\n");
             break;
 
         case 1:
-            printf("\nClasse: Ladino");
+            printf("Classe: Ladino\n");
             break;
 
         case 2:
-            printf("\nRaca: Mago");
+            printf("Raca: Mago\n");
             break;
 
         case 3:
-            printf("\nRaca: Barbaro");
+            printf("Raca: Barbaro\n");
             break;
 
             break;
 
         case 6:
-            printf("\nRaca: Engenheiro");
+            printf("Raca: Engenheiro\n");
             break;
 
         case 7:
-            printf("\nRaca: Arqueiro");
+            printf("Raca: Arqueiro\n");
             break;
         }
+        printf("\nVida: %d\n", personagem.vida);
+        printf("Mana: %d\n", personagem.mana);
+        printf("Forca: %d\n",personagem.status_pers.forca);
+        printf("Agilidade: %d\n",personagem.status_pers.agilidade);
+        printf("Vigor: %d\n",personagem.status_pers.vigor);
+        printf("Intelecto: %d\n",personagem.status_pers.intelecto);
+        printf("Carisma: %d\n",personagem.status_pers.carisma);
+        printf("Sabedoria: %d\n\n",personagem.status_pers.sabedoria);
 
-        printf("\n\nVida: %d", personagem.vida);
-        printf("\nMana: %d", personagem.mana);
-        printf("\nForca: %d",personagem.status_pers.forca);
-        printf("\nAgilidade: %d",personagem.status_pers.agilidade);
-        printf("\nVigor: %d",personagem.status_pers.vigor);
-        printf("\nIntelecto: %d",personagem.status_pers.intelecto);
-        printf("\nCarisma: %d",personagem.status_pers.carisma);
-        printf("\nSabedoria: %d",personagem.status_pers.sabedoria);
 
-
-        printf("\n\nDeseja seguir com %s? (Digite 0 para recriar o personagem ou 1 para continuar): ", personagem.nome);
+        printf("Deseja seguir com %s? (Digite 0 para recriar o personagem ou 1 para continuar): ", personagem.nome);
         scanf("%d", &criacao);
 
  }while(criacao == 0);
 
-        printf("Personagem criado com sucesso!!!");
+        printf("Personagem criado com sucesso!!!\n");
+        system("PAUSE");
         return personagem;
 }
 

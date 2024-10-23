@@ -58,8 +58,8 @@ int main() {
 		printf("\n");
 		printf("Bem-vindo ao nosso RPG de texto! O que deseja fazer?\n");
 		printf("\n");
-		printf("[jogar]\n");
-		printf("[sair] do programa\n");
+		printf("(jogar)\n");
+		printf("(sair) do programa\n");
 		printf("\n");
 		printf("Digite a palavra em parênteses: ");
 		scanf("%s", escolha);
@@ -92,10 +92,48 @@ int main() {
 			guarda.efeito = 3;
 			guarda.vida = 15;
 			
-			printf("combate teste (o mesmo inicial da carroça)");
+			clear();
+		    printf("As ruas de Eldoria eram conhecidas pela sua vida vibrante,\n");
+		    printf("mas à medida que o sol se punha, a cidade mergulhava em\n");
+		    printf("sombras profundas. Você, um jovem aventureiro, chegou à\n");
+		    printf("cidade em busca de respostas sobre o desaparecimento de\n");
+		    printf("um velho amigo. Ao caminhar pelas vielas, o eco dos seus\n");
+		    printf("passos se mistura com os sussurros de conspirações que\n");
+		    printf("correm soltas por Eldoria.\n\n");
+		    
+		    system("PAUSE");
+		
+		    printf("Suas investigações o levaram a uma taverna isolada,\n");
+		    printf("\"O Corvo Pálido\". Lá, o taverneiro o observava com olhos\n");
+		    printf("desconfiados, mas, com alguma persuasão, você conseguiu\n");
+		    printf("arrancar uma informação vital: o amigo que você busca\n");
+		    printf("foi visto pela última vez nos arredores da prisão da\n");
+		    printf("cidade, onde algo sombrio parece estar acontecendo.\n\n");
+		    
+		    system("PAUSE");
+		
+		    printf("Decidido, você segue em direção à prisão, seus sentidos\n");
+		    printf("alertas. Porém, ao se aproximar dos portões, uma figura\n");
+		    printf("encapuzada intercepta o seu caminho.\n");
+		    printf("O guarda da prisão, com uma expressão sombria e uma mão\n");
+		    printf("firme sobre o cabo de sua espada, bloqueia sua passagem.\n\n");
+		    
+		    system("PAUSE");
+		
+		    printf("\"Parece que temos um curioso por aqui,\" ele rosna.\n");
+		    printf("\"Volte agora, ou não terei escolha a não ser forçá-lo.\"\n\n");
+		    
+		    system("PAUSE");
+		
+		    printf("Seu coração acelera. A noite silenciosa é interrompida\n");
+		    printf("pelo som metálico de uma espada sendo desembainhada.\n");
+		    printf("Não há mais como recuar. Você puxa sua arma, pronto para\n");
+		    printf("a batalha que se aproxima.\n\n");
+
 			system("PAUSE");
-			combate(personagem, guarda);
 			
+			clear();
+			combate(personagem, guarda);
 		} else if(strcmp(escolha, "sair") == 0) {
 			
 			//Fim do programa
