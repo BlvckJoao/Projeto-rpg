@@ -27,7 +27,7 @@ tpersonagem criar_personagem() {
             }
         } while (loop == 0);
         printf("Você decidiu prosseguir com o personagem: %s\n\n", personagem.nome);
-
+        
         loop = 0; // Reset do loop para ser utilizado de novo
 
         // Escolha de raça
@@ -267,7 +267,7 @@ tpersonagem criar_personagem() {
 
         while(loop == 0) {
     	printf("Pontos restantes a distribuir = %d\n", max_pontos_stats );
-        printf("Digite o intelecto de %s: ", personagem.nome);
+        printf("Digite o carisma de %s: ", personagem.nome);
         scanf("%d", &personagem.status_pers.carisma);
         if(personagem.status_pers.carisma >= 1 && personagem.status_pers.carisma <= 20) {
         	if(personagem.status_pers.carisma <= max_pontos_stats) {
@@ -382,7 +382,11 @@ tpersonagem criar_personagem() {
 
         printf("Deseja seguir com %s? (Digite 0 para recriar o personagem ou 1 para continuar): ", personagem.nome);
         scanf("%d", &criacao);
-
+        
+        for(int i = 0; i < personagem.max_inventario; i++) {
+        	strcpy(personagem.inventario[i].nome, "\0");
+		}
+		
  }while(criacao == 0);
 
         printf("Personagem criado com sucesso!!!\n");
@@ -391,12 +395,10 @@ tpersonagem criar_personagem() {
 }
 
 void MostrarInventario(tpersonagem personagem) {	
-    for (int i = 0; i < 20; i++) {
-        // Verifica se o nome do item não está vazio, evitando comparação direta com NULL
-        if (personagem.inventario[i].nome[0] != '\0') {
+    for (int i = 0; i < personagem.max_inventario; i++) {
+        // Verifica se o nome do item não está vazio
             printf("\n%d. %s", i + 1, personagem.inventario[i].nome);
-        }
-    }  
+    } 
 }
 
 void PegarItem(tpersonagem *personagem, titem item) {
@@ -407,7 +409,7 @@ void PegarItem(tpersonagem *personagem, titem item) {
 
     if (opcao == 1) {
         // Procura por um espaço vazio no inventário
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < personagem->max_inventario; i++) {
             // Verifica se o slot do inventário está vazio
             if (personagem->inventario[i].nome[0] == '\0') {
                 personagem->inventario[i] = item;  // Atribui o item ao inventário
@@ -503,7 +505,7 @@ int attack(int dano, int atk, int defesa) {
 }
 
 int attackInimigo(int dano, int atk, int defesa) {
-    int intervalo = 20; // Adicionando ponto e vírgula
+    int intervalo = 20;
     int teste = random_num(intervalo); // Chama a função random_num
 
     // Lógica de ataque
@@ -514,7 +516,7 @@ int attackInimigo(int dano, int atk, int defesa) {
     	printf("\nAtaque crítico, o inimigo te atacou em ponto vital e causou %d de dano", dano*2);
         return dano * 2; // Retorna o dano dobrado se a condição for verdadeira
     } else if (teste + atk < defesa / 2) {
-    	printf("\nVoce tentou atacar mas errou miseravelmente, nao causou dano");
+    	printf("\nO inimigo tentou atacar mas errou miseravelmente, nao causou dano");
         return 0; // Retorna 0 se a condição for verdadeira
     }
 
@@ -544,46 +546,110 @@ void combate(tpersonagem personagem, tentidade entidade) {
     tpersonagem *ptr_pers;
     ptr_pers = &personagem;
     
-    do{
-    	printf("O %s se aproxima de %s\n\n", entidade.nome, personagem.nome);
-    	printf("Vida do inimigo: %i\n\n", entidade.vida);
-    	printf("Sua vida: %i\n\n", personagem.vida);
-    	printf("Menu: \n");
-    	printf("\n1 - Ataque\n2 - Inventário\n3 - Fugir\n\nDigite sua escolha: ");
-    	scanf("%d", &opcao);
-    	switch (opcao) {
-        	case 1:
-            	// Chama a função de ataque, passando os parâmetros corretos
-            	dano = attack(personagem.arma.efeito, personagem.status_pers.forca, entidade.stats_ent.agilidade);
-            	entidade.vida -= dano; // Reduz a vida da entidade com o dano causado
-            	break;
-        	case 2:
-        		MostrarInventario(personagem);
-            	break;
-        	case 3:
-        		fuga = fugir(ptr_pers, entidade);
-        		
-            	if(fuga == 0){
-            		printf("Você nao conseguiu fugir e perde a rodada");
-				}
-        	default:
-            	printf("\nOpção inválida! Voce entra e choque e não faz nada nessa rodada");
-            	break; // Para lidar com opções inválidas
+    do {
+    	clear();
+        printf("O %s se aproxima de %s\n\n", entidade.nome, personagem.nome);
+        printf("Vida do inimigo: %i\n", entidade.vida);
+        printf("Sua vida: %i\n", personagem.vida);
+        printf("Menu: \n");
+        printf("1 - Ataque\n2 - Inventário\n3 - Fugir\n\nDigite sua escolha: ");
+        scanf("%d", &opcao);
+        printf("\n");
+
+        switch (opcao) {
+            case 1:
+                // Chama a função de ataque, passando os parâmetros corretos
+                dano = attack(personagem.arma.efeito, personagem.status_pers.forca, entidade.stats_ent.agilidade);
+                entidade.vida -= dano; // Reduz a vida da entidade com o dano causado
+                printf("\nFoi causado %d de dano ao %s!\n", dano, entidade.nome);
+                break;
+
+            case 2:
+                MostrarInventario(personagem);
+                opcao = opcoes("\nQual é o item que você deseja utilizar", 20);
+                UsarItem(ptr_pers, 20);
+                break;
+            case 3:
+                fuga = fugir(ptr_pers, entidade);
+                if(fuga == 1) {
+                    fuga = 1;
+                } else {
+                    printf("Você não conseguiu fugir e perdeu uma rodada.\n");
+                }
+                break;
+
+            default:
+                printf("\nOpção inválida! Você entrou em choque e não fez nada nesta rodada.\n");
+                break;
+        }
+
+        // Se o jogador não fugiu e a entidade ainda está viva, ela ataca
+        if(fuga == 0 && entidade.vida > 0) {
+            printf("\nVez do inimigo, ele te ataca!\n");
+            dano = attackInimigo(entidade.efeito, entidade.stats_ent.agilidade, personagem.status_pers.agilidade + personagem.armadura.efeito);
+            personagem.vida -= dano;
+            printf("\nO inimigo causou %d de dano a você!\n", dano);
+        }
+
+    } while(personagem.vida > 0 && entidade.vida > 0 && fuga == 0);
+
+    // Condições de fim de combate
+    if(entidade.vida <= 0) {
+        printf("\nO %s morreu, agora você está livre.\n", entidade.nome);
+    } else if(personagem.vida <= 0) {
+        printf("\nVocê morreu.\n");
+    } else if(fuga == 1) {
+        printf("\nVocê correu muito e conseguiu fugir do %s. Está livre.\n", entidade.nome);
     }
-    
-    printf("\nVez do inimigo ele te ataca");
-    
-	}while(personagem.vida > 0 || entidade.vida > 0 || fuga != 1);
-	
-	if(entidade.vida <= 0){
-		printf("\nO %s morreu agora voce esta livre", entidade.nome);
-		return;
-	}else if(personagem.vida <= 0){
-		printf("\nVocê morreu");
-		return;
-	}else{
-		printf("Você corre muito e conseguiu fugir do %s, está livre", entidade.nome);
-		return;
+    system("PAUSE");
+}
+
+int opcoes(char mensagem[], int num_max) {
+	int loop = 1;
+	int num;
+	while(loop) {
+		printf(mensagem);
+		printf("\n>>> ");
+		scanf("%i", &num);
+		if(num <= num_max && num > 0) {
+			return num;
+		} else {
+			printf("\nOpção inválida, Tente outra vez\n\n");
+		}
 	}
 }
 
+void clear() {
+	
+	//Verifica qual é o sistema operacional para utilizar o comando de limpar a tela correto
+	#ifdef _WIN32
+		system("cls");
+	#else
+		system("clear");
+	#endif
+	
+}
+
+void printtxt(char nome[]) {
+	
+	//Abre o arquivo para leitura
+	FILE *arquivo = fopen(nome, "r");
+	
+	//Verifica se o arquivo foi aberto (se não, mostra uma mensagem de erro)
+	if(arquivo == NULL) {
+		printf("Erro ao procurar o arquivo %s\n", nome);
+		printf("Verifique se o arquivo está presente na pasta do jogo.");
+		exit(EXIT_FAILURE);
+	}
+	
+	//Imprime todas as linhas presentes no arquivo e pula uma linha
+	char linha[256];
+	while(fgets(linha, sizeof(linha), arquivo) != NULL) {
+		printf("%s", linha);
+	}
+	printf("\n");
+	
+	//Fecha o arquivo
+	fclose(arquivo);
+	
+}

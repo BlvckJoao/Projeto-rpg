@@ -97,4 +97,10 @@ int fugir(tpersonagem *personagem, tentidade entidade);
 
 void combate(tpersonagem personagem, tentidade entidade);
 
+int opcoes(char mensagem[], int num_max);
+
+void clear();
+
+void printtxt(char nome[]);
+
 #endif
